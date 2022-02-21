@@ -6,6 +6,7 @@ const urlParams = require('url-search-params')
 const querystring = require('querystring');
 const isLoggedIn = require("../middleware/isLoggedIn");
 const SpotifyWebApi = require('spotify-web-api-node');
+const Playlist = require("../models/Playlist.model");
 
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -48,6 +49,12 @@ const spotifyApi = new SpotifyWebApi({
         /* Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`, */
         },
        })
+
+    Playlist.create({name, description, author: user_id})
+    .then(playlistCreated => {
+        res.render(list/my-playlist)
+    })
+    .catch(err => next(err))
   })
 
 /*   router.post('./spotify-logout', isLoggedIn, (req,res,next) =>{
