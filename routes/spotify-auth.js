@@ -40,7 +40,6 @@ router.get('/create/login', (req,res) => {
         state: state,
         scope: scope
     })
-    console.log('client:', clientId, 'uri:', redirectUri)
     res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`)
 })
     
@@ -69,7 +68,7 @@ router.get('/callback', (req,res,next) => {
           refresh_token,
         })
       
-        res.redirect(`/create/?${queryParams}`)      // substituir pra nosso app.
+        res.redirect(`/create/${queryParams}`)      // substituir pra nosso app.
       
     } else {
         res.send(response);

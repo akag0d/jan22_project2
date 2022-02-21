@@ -33,6 +33,12 @@ app.use("/auth", authRoutes);
 const spotifyAuth = require("./routes/spotify-auth");
 app.use("/", spotifyAuth);
 
+const spotifyRoutes = require("./routes/spotify.routes");
+app.use("/", spotifyRoutes);
+
+/* const dbRoutes = require("./routes/db.routes");
+app.use("/", dbRoutes); */
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

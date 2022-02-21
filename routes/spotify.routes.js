@@ -5,16 +5,17 @@ const axios = require('axios');
 const urlParams = require('url-search-params')
 const querystring = require('querystring');
 
+const baseUrl = 'https://api.spotify.com/v1'
 
-router.get('create/:accessToken&:refreshToken', (req,res,next) => {
-    /* const {accessToken, refreshToken} = req.params; */
+router.get('/create/access_token=:accessToken&refresh_token=:refreshToken', (req,res,next) => {
     
- const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const accessToken = urlParams.get('access_token');
-    const refreshToken = urlParams.get('refresh_token'); 
-    console.log(accessToken, 'refresh: ', refreshToken)
-    /* res.render(`profile/${acessToken}&${refreshToken}`,) */
-  })
+    const accessToken = req.params.accessToken;
+    const refreshToken = req.params.refreshToken
+
+    console.log('access', req.params.accessToken, 'refresh: ', refreshToken)
+    res.render('profile')
+
+    return {accessToken, refreshToken}
+})
 
   module.exports = router;
