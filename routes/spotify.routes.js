@@ -5,18 +5,54 @@ const axios = require('axios');
 const urlParams = require('url-search-params')
 const querystring = require('querystring');
 const isLoggedIn = require("../middleware/isLoggedIn");
+const SpotifyWebApi = require('spotify-web-api-node');
 
+const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET
+  });
 
   router.get('/create/access_token=:accessToken&refresh_token=:refreshToken', (req,res,next) => {
     req.app.locals.accessToken = req.params.accessToken
     req.app.locals.refreshToken = req.params.refreshToken
-    
-    res.render('list/create-playlist')
+
+    axios.get('https://api.spotify.com/v1/me', {
+            params: { limit: 50, offset: 0 },
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + req.app.locals.accessToken,
+                'Content-Type': 'application/json',
+            },
+        })
+    .then((myInfo) => {
+        console.log(myInfo.data)
+        const myProfile = myInfo.data
+        res.render('list/create-playlist', {myProfile})
+    })
+    .catch(err => next(err))
   })
 
-  router.post('/create/logout', isLoggedIn, (req,res,next) =>{
+  router.post('/create-playlist', (req,res,next) => {
+    const {name, description, user_id} = req.body
+
+    axios({
+        method: 'post',
+        url: `https://api.spotify.com/v1/users/${user_id}/playlists`,
+        data: querystring.stringify({
+           name: {name},
+           description: {description},
+           public: false
+        }),
+        headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        /* Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`, */
+        },
+       })
+  })
+
+/*   router.post('./spotify-logout', isLoggedIn, (req,res,next) =>{
     app.locals.accessToken = ''
     res.redirect('/')
-  })
+  }) */
 
   module.exports = router;
