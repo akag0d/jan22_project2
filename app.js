@@ -21,6 +21,7 @@ require("./config")(app);
 const projectName = "project2";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
+
 app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 // 👇 Start handling routes here
@@ -32,6 +33,12 @@ app.use("/auth", authRoutes);
 
 const spotifyAuth = require("./routes/spotify-auth");
 app.use("/", spotifyAuth);
+
+const spotifyRoutes = require("./routes/spotify.routes");
+app.use("/", spotifyRoutes);
+
+/* const dbRoutes = require("./routes/db.routes");
+app.use("/", dbRoutes); */
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
