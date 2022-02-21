@@ -61,20 +61,16 @@ router.get('/callback', (req,res,next) => {
      },
     })
     .then(response => {                            //redirect to index and pass along tokens in query params
-    if (response.status === 200) {       
-     const { access_token, refresh_token } = response.data;
+      if (response.status === 200) {       
+        const { access_token, refresh_token } = response.data;
 
-     const queryParams = querystring.stringify({
-      access_token,
-      refresh_token,
-    });
-
-     res.redirect(`/create/?${queryParams}`)      // substituir pra nosso app.
-
-    .catch(error => {
-        res.send(error);
-    }); 
-        
+        const queryParams = querystring.stringify({
+          access_token,
+          refresh_token,
+        })
+      
+        res.redirect(`/create/?${queryParams}`)      // substituir pra nosso app.
+      
     } else {
         res.send(response);
     }
@@ -100,7 +96,7 @@ router.get('/refresh_token', (req, res) => {
       },
     })
       .then(response => {
-        res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);
+        res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`)
       })
       .catch(error => {
         res.send(error);
