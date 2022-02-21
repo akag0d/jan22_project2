@@ -10,6 +10,9 @@ const userSchema = new Schema(
     password: String,
   },
   {
+  playlist: [{ type: Schema.Types.ObjectId, ref: 'Playlist'}],
+  },
+  {
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }

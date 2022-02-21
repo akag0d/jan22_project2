@@ -1,0 +1,17 @@
+<div id='form'>
+  <h2>Search Playlist</h2>
+
+  <form action='/search-playlist.hbs' method='post'>
+
+    <label for='title'>Title</label>
+    <input type='title' name='title' />
+
+    <label for='artist'>Artist</label>
+    <input type='artist' name='artist' />
+
+    <button type='search'>Search</button>
+  </form>
+  {{#if errorMessage}}
+    <p>{{errorMessage}}</p>
+  {{/if}}
+</div>
