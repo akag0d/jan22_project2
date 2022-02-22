@@ -26,3 +26,38 @@ body {
   background-color: red;
   color: white;
 }
+
+ /*   Profile.hbs    */
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  align-items: center;
+  padding: 100px;
+  margin: 15px;
+  width: 30vw;
+  background-color: rgb(135, 181, 189);
+}
+
+ /* View-playlist.hbs */
+
+.view-playlist {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  padding: 10px;
+  margin: 15px;
+}
+
+.search-song {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  background-color: rgb(135, 181, 189);
+  padding: 10px;
+  margin: 15px;
+}

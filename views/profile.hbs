@@ -1,9 +1,10 @@
-<h1>{{user.username}}</h1>
+<h1>{{username}}</h1>
 
-<a href='/myplaylists/{{user._id}}'>My Playlists</a>
-<a href="/search-playlist">Search Playlist</a>
-<a href="/create/login">Create a playlist</a>
+<div class="profile">
+    <a href='/myplaylists/{{_id}}'>My Playlists</a>  {{!-- {{COMO COLOCAR O USER ID AQUI}} --}}
+    <a href="/search-playlist">Search Playlist</a>
+    <a href="/create/login">Create a playlist</a>
+</div>
 
-<form action="/logout" method="post">
-<button type="submit">Logout</button>
-</form>
+
+

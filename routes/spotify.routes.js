@@ -11,7 +11,7 @@ const Playlist = require("../models/Playlist.model");
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET
-  });
+});
 
   router.get('/create/access_token=:accessToken&refresh_token=:refreshToken', (req,res,next) => {
     req.app.locals.accessToken = req.params.accessToken
@@ -46,18 +46,20 @@ const spotifyApi = new SpotifyWebApi({
         }),
         headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        /* Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`, */
+         Authorization: `Basic ${new Buffer.from(`${spotifyApi.clientId}:${spotifyApi.clientSecret}`).toString('base64')}`, 
         },
        })
 
-    Playlist.create({name, description, author: user_id})
+    Playlist.create({name, description, author})
     .then(playlistCreated => {
-        res.render(list/my-playlist)
+        res.render('list/my-playlist/', {playlist: playlistCreated}) /* ACHO QUE ESTA ERRADO, COLOCAR ID??? */
     })
     .catch(err => next(err))
   })
 
-/*   router.post('./spotify-logout', isLoggedIn, (req,res,next) =>{
+/*   CRIAR LOGOUT DO SPOTIFY?
+
+    router.post('./spotify-logout', isLoggedIn, (req,res,next) =>{
     app.locals.accessToken = ''
     res.redirect('/')
   }) */

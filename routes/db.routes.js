@@ -2,12 +2,14 @@ const router = require ('express').Router();
 const mongoose = require ('mongoose');
 
 const Playlist = require('../models/Playlist.model');
+const User = require("../models/User.model");
 
-router.get(`/profile/:userId`, (req, res, next) => {
-    const id = req.params._id;
+router.get('/profile/:userId', (req, res, next) => {
+    const id = req.params.userId;
     User.findById(id)
     .then(user => {
-        res.render('profile', {user});
+        console.log(user)
+        res.render('profile', user);
     })
     
 });
@@ -51,12 +53,14 @@ router.post('/search-songs', (req, res, next) => {
     })
 });
 
-router.get('myplaylists/:userId', (req,res,next) => {
+router.get('/myplaylists/:userId', (req,res,next) => {
     const user = req.params.userId
-    findById(user)
+    User.findById(user)
+ /* .populate('playlists')            CANT POPULATE PLAYLIST????  MongooseError: Cannot populate path `playlists` because it is not in your schema. Set the `strictPopulate` option to false to override. */
     .then(user => {
+        console.log(user)
         const userPlaylists = user.playlists
-        res.render('list/my-playlists', {userPlaylists})
+        res.render('list/my-playlists', {userPlaylists} )
     })
     
 })

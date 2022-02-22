@@ -1,24 +1,24 @@
-<h2>Playlist</h2>
-<h3>{{playlist.name}}</h3>
-<p>{{playlist.author}}</p>
-<p>Next songs:</p>
-{{!-- <form action="/add-song" method="post">
-<button type="submit">Add your song</button>
-</form> --}}
+<div class="view-playlist">
+    <h2>{{playlist.name}}</h2>
+    <h3>Playlist</h3>
+    <p>By {{playlist.author}}</p>
+    <p>Check the next songs:</p>
+</div>
+
 <div class="search-song">
-<h2>Add your song!</h2>
+    <h3>Add your song!</h3>
 
- <form action="/search-songs">
+    <form action="/search-songs" class="search-song">
  
- <label for="name">Name</label>
- <input type="text" name="name">
+        <label for="name">Name</label>
+        <input type="text" name="name">
+        <br>
+        <label for="artist">Artist</label>
+        <input type="text" name="artist">
+        <br>
+        {{!--  hidden playlist id --}}
 
- <label for="artist">Name</label>
- <input type="text" name="artist">
+        <button type="submit">Search</button>
 
-{{!--  hidden playlist id --}}
-
- <button type="submit">Search</button>
-
- </form>
+    </form>
 </div>
