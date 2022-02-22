@@ -1,7 +1,5 @@
 <h2>My playlists</h2>
 
 {{#each userPlaylists}}
-<a href="{{href}}">{{name}}</a>
-<p>{{author}}</p>
-{{tracks}}
+<a href="{{this.href}}">{{this.name}}</a> - {{description}}
 {{/each}}

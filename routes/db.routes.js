@@ -15,6 +15,7 @@ router.get('/profile', isLoggedIn, async (req, res, next) => {
 
 router.get('/myplaylists', isLoggedIn, async (req,res,next) => {
     User.findById(req.session.user._id)
+    .populate('playlists')
     .then(user => {
         const userPlaylists = user.playlists
         res.render('list/my-playlists', {userPlaylists} )
@@ -84,13 +85,23 @@ router.get('/songs-results', (req,res,next) => {
     })
 }) */
 
+router.get('/edit/:playlistId', (req,res,next) => {
+    const {playlistId} = req.params;
+
+    Playlist.findById(playlistId)
+    .then(editPlaylist => {
+        res.render('list/edit-playlist', {playlist: editPlaylist})
+    })
+    .catch(err => next(err))
+})
+
 router.post('/edit/:playlistId', (req,res,next) => {
-    const {playlistId} = req.params
-    const {name, description} = req.body
+    const {playlistId} = req.params;
+    const {name, description} = req.body;
 
     Playlist.findByIdAndUpdate(playlistId, {name, description})
     .then((updatedPlaylist) => {
-        res.redirect(`/viewplaylist/${playlistId}`)
+        res.redirect(`/viewplaylist/${updatedPlaylist._id}`)
     })
     .catch(err => next(err))
 })

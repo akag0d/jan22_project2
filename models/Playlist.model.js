@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const playlistSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: String,
     href: String,

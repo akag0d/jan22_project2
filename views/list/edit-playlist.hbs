@@ -1,7 +1,13 @@
 <h2>Edit your playlist</h2>
 
-<form action="/" method="post">
+<div class="create-form">
+<form action="/edit/{{playlist._id}}" method="post">
 
-{{!-- COPIAR FORM E ADD VALUE --}}
+<label for="name">Playlist Name:</label>
+<input type="text" name="name" value="{{playlist.name}}">
 
+<label for="description">Description:</label>
+<textarea name="description" cols="30" rows="10">{{playlist.description}}</textarea>
+
+<button type="submit">Send</button>
 </form>

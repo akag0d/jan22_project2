@@ -26,7 +26,6 @@ const spotifyApi = new SpotifyWebApi({
             },
         })
     .then((myInfo) => {
-        console.log(myInfo.data)
         const myProfile = myInfo.data
         res.render('list/create-playlist', {myProfile})
     })
@@ -54,13 +53,13 @@ const spotifyApi = new SpotifyWebApi({
     Playlist.create({name, description, author})
     .then(playlistCreated => {
         const user = req.app.locals.user._id;
-        
+
         User.findById(user)
         .then((foundUser) => {
           foundUser.playlists.push(playlistCreated._id)
-          res.redirect(`/viewplaylist/${playlistCreated._id}`, {playlist: playlistCreated})
+          foundUser.save();
+          res.redirect(`/viewplaylist/${playlistCreated._id}`)
         })
-        
     })
     .catch(err => next(err))
   })
