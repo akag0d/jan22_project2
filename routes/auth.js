@@ -68,8 +68,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
       .then((user) => {
         // Bind the user to the session object
         req.session.user = user;
+        res.redirect(`/profile`);
       })
-      .then((user) => res.redirect(`/profile/${user._id}`))
+      /* .then((user) => res.redirect(`/profile/${user._id}`)) */
       .catch((error) => {
         if (error instanceof mongoose.Error.ValidationError) {
           return res
@@ -128,11 +129,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
             .status(400)
             .render("auth/login", { errorMessage: "Wrong credentials." });
         }
-        req.session.user = user
+        req.session.user = user;
+        res.redirect(`/profile`);
       }) // req.session.user = user._id; // ! better and safer but in this case we saving the entire user object
-        .then((user) => {
-          return res.redirect(`/profile/${user._id}`)
-        })
     })
 
     .catch((err) => {

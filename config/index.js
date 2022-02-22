@@ -1,3 +1,5 @@
+const hbs = require('hbs')
+
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
 
@@ -44,6 +46,11 @@ module.exports = (app) => {
   app.set("view engine", "hbs");
   // AHandles access to the public folder
   app.use(express.static(path.join(__dirname, "..", "public")));
+
+  hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+  });
+
 
   // Handles access to the favicon
   app.use(

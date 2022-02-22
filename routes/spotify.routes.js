@@ -33,10 +33,11 @@ const spotifyApi = new SpotifyWebApi({
     .catch(err => next(err))
   })
 
-  router.post('/create-playlist', (req,res,next) => {
-    const {name, description, user_id} = req.body
+  router.post('/create-playlist', async (req,res,next) => {
+    const {name, description} = req.body
+    const author = await User.findById(req.session.user._id)
 
-    axios({
+/*     axios({
         method: 'post',
         url: `https://api.spotify.com/v1/users/${user_id}/playlists`,
         data: querystring.stringify({
@@ -48,11 +49,18 @@ const spotifyApi = new SpotifyWebApi({
         'content-type': 'application/x-www-form-urlencoded',
          Authorization: `Basic ${new Buffer.from(`${spotifyApi.clientId}:${spotifyApi.clientSecret}`).toString('base64')}`, 
         },
-       })
+       }) */
 
     Playlist.create({name, description, author})
     .then(playlistCreated => {
-        res.render('list/my-playlist/', {playlist: playlistCreated}) /* ACHO QUE ESTA ERRADO, COLOCAR ID??? */
+        const user = req.app.locals.user._id;
+        
+        User.findById(user)
+        .then((foundUser) => {
+          foundUser.playlists.push(playlistCreated._id)
+          res.redirect(`/viewplaylist/${playlistCreated._id}`, {playlist: playlistCreated})
+        })
+        
     })
     .catch(err => next(err))
   })

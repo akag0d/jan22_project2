@@ -8,7 +8,7 @@ const playlistSchema = new Schema({
     },
     description: String,
     href: String,
-    author: [ { type: Schema.Types.ObjectId, ref: 'User'} ],
+    author: { type: Schema.Types.ObjectId, ref: 'User'},
     tracks: [/* { type: Schema.Types.ObjectId, ref: 'Playlist'} */]
 },
 {
