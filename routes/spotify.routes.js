@@ -80,21 +80,23 @@ router.post('/create-playlist', async (req,res,next) => {
 
 router.get('/search-songs', (req,res,next) => {
       const accessToken = req.app.locals.accessToken;
+      const query = req.query.search;
+      console.log('-----------------------', query)
    
-       axios.get('https://api.spotify.com/v1/search', { 
-               params: { limit: 50, offset: 0 }, //typw: "track,artist"
+        axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track`, {  //type: "track,artist"
+               params: { limit: 20, offset: 0 }, 
                headers: {
                    Accept: 'application/json',
                    Authorization: 'Bearer ' + accessToken,
                    'Content-Type': 'application/json',
                },
            })
-       .then((data) => {
-         /* console.log(data) */
-         const searchResults = data.body.artists.items
-         res.render('list/search-results', {searchResults})
+       .then((resp) => {
+        const songResults = resp.data.tracks.items
+        console.log(songResults) 
+        res.render('list/search-results', {songResults}) 
        })
-       .catch(err => next(err))
+       .catch(err => next(err)) 
      })
 
 

@@ -26,14 +26,11 @@
 
     <form action="/search-songs" class="search-song" method="get">
  
-        <label for="name">Name</label>
-        <input type="text" name="name">
-        <br>
-        <label for="artist">Artist</label>
-        <input type="text" name="artist">
+        <label for="search">Search</label>
+        <input type="text" name="search" placeholder="Look for artists or tracks">
         <br>
         {{!--  hidden playlist id --}}
-        <input type="hidden" name="playlistId" value="{{playlist._id}}">
+        {{!-- <input type="hidden" name="playlistId" value="{{playlist._id}}"> --}}
 
         <button type="submit">Search</button>
 
