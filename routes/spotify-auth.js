@@ -31,7 +31,7 @@ router.get('/create/login', (req,res) => {
     res.cookie(stateKey, state);
     
 // application requests authorization we need. UPDATE!!!
-    const scope = 'user-read-private user-read-email';
+    const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public';
 
     const queryParams = querystring.stringify({
         client_id: clientId,
@@ -62,7 +62,7 @@ router.get('/callback', (req,res,next) => {
     .then(response => {                            //redirect to index and pass along tokens in query params
       if (response.status === 200) {       
         const { access_token, refresh_token } = response.data;
-
+        console.log('response.data:', response.data)
         const queryParams = querystring.stringify({
           access_token,
           refresh_token,

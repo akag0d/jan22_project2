@@ -26,8 +26,29 @@ const spotifyApi = new SpotifyWebApi({
             },
         })
     .then((myInfo) => {
-        const myProfile = myInfo.data
+        const myProfile = myInfo.data;
+        req.app.locals.myProfile = myProfile;
+        req.session.myProfile = myProfile;
         res.render('list/create-playlist', {myProfile})
+    })
+    .catch(err => next(err))
+  })
+
+  router.get('/search-songs', (req,res,next) => {
+   const accessToken = req.app.locals.accessToken;
+
+    axios.get('https://api.spotify.com/v1/search', {
+            params: { limit: 50, offset: 0 },
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + accessToken,
+                'Content-Type': 'application/json',
+            },
+        })
+    .then((data) => {
+      /* console.log(data) */
+      const searchResults = data.body.artists.items
+      res.render('list/search-results', {searchResults})
     })
     .catch(err => next(err))
   })
@@ -35,20 +56,23 @@ const spotifyApi = new SpotifyWebApi({
   router.post('/create-playlist', async (req,res,next) => {
     const {name, description} = req.body
     const author = await User.findById(req.session.user._id)
+    const accessToken = req.app.locals.accessToken
 
-/*     axios({
-        method: 'post',
-        url: `https://api.spotify.com/v1/users/${user_id}/playlists`,
-        data: querystring.stringify({
-           name: {name},
-           description: {description},
-           public: false
-        }),
-        headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-         Authorization: `Basic ${new Buffer.from(`${spotifyApi.clientId}:${spotifyApi.clientSecret}`).toString('base64')}`, 
+     axios({
+      method: 'post',
+      url: `https://api.spotify.com/v1/users/${req.session.myProfile.id}/playlists`,
+      data: {
+         name: name,
+         description: description,
+         public: false
         },
-       }) */
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${accessToken}`, 
+        },
+    })
+    .then((data) => console.log(data.data.error))
+    .catch((err) => console.log('------------------------', err))   
 
     Playlist.create({name, description, author})
     .then(playlistCreated => {
