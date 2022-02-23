@@ -55,7 +55,7 @@ router.post('/search-playlist', (req, res, next) => {
 
 router.get('/viewplaylist/:_id', async (req,res,next) => {
     const {_id} = req.params
-
+    
     Playlist.findById(_id)
     .populate('author')
     .then(playlist => {
@@ -65,26 +65,6 @@ router.get('/viewplaylist/:_id', async (req,res,next) => {
     .catch(err => {next(err)})
 })
 
-///Daqui pra cima tá ok, daqui pra baixo tem que fazer tudo: Tracks, Views, Routes...
-
-
-/* 
-router.post('/search-songs', (req, res, next) => {
-    const { name, artist , playlistId } = req.body;
-    Tracks.findOne(name)
-    .then(tracksFound => {
-        res.render('list/search-songs')
-    })
-}); */
-
-/* router.get('/songs-results', (req,res,next) => {
-    Playlist.findByIdAndUpdate(playlistId)
-    .then(playlistFound => {
-        console.log(playlistFound)
-        playlistFound.tracks.push(name)
-        res.redirect(`/viewplaylist/${_id}`)
-    })
-}) */
 
 router.get('/edit/:playlistId', (req,res,next) => {
     const {playlistId} = req.params;

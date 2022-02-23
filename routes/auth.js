@@ -149,6 +149,9 @@ router.get("/logout", isLoggedIn, (req, res) => {
         .status(500)
         .render("auth/logout", { errorMessage: err.message });
     }
+    req.app.locals.accessToken = ''; //IT DIDNT WORK! for logout in spotify too.
+    req.app.locals.refreshToken = '';
+    console.log(req.app.locals)
     res.redirect("/");
   });
 });
