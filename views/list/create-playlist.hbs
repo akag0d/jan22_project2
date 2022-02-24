@@ -1,19 +1,22 @@
-<p>Welcome, {{myProfile.display_name}}</p> 
+<div class="body">
+    <div class="title">
+        <h3>Welcome, {{myProfile.display_name}}</h3> 
+    </div>
 
-<img src="{{myProfile.images.0.url}}" alt="profile picture">
+    <img class="profile-img" src="{{myProfile.images.0.url}}!" alt="profile picture">
 
-<div class="add-song">
+    <div class="add-song">
+    <h3>Create a playlist</h3>
 
-<h2>Create a playlist</h2>
+    <form class="form" action="/create-playlist" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name">
 
-<form class="create-form" action="/create-playlist" method="post">
-    <label for="name">Playlist Name:</label>
-    <input type="text" name="name">
+        <label for="description">Description:</label>
+        <textarea name="description" cols="30" rows="10"></textarea>
 
-    <label for="description">Description:</label>
-    <textarea name="description" cols="30" rows="10"></textarea>
+        <button type="submit">Send</button>
+    </form>
 
-    <button type="submit">Create your playlist!</button>
-</form>
-
+    </div>
 </div>

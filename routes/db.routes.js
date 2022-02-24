@@ -94,4 +94,8 @@ router.post('/delete/:playlistId', (req,res,next) => {
     .catch(err => next(err))
 })
 
+router.get('/about', (req,res,next) => {
+    res.render('about')
+})
+
 module.exports = router;

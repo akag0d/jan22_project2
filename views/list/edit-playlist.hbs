@@ -1,13 +1,16 @@
-<h2>Edit your playlist</h2>
+<div class="body">
+    <div class="title">
+        <h2>Edit your playlist</h2>
+    </div>
 
-<div class="create-form">
-<form action="/edit/{{playlist._id}}" method="post">
+    <form class="form" action="/edit/{{playlist._id}}" method="post">
 
-<label for="name">Playlist Name:</label>
-<input type="text" name="name" value="{{playlist.name}}">
+    <label for="name">Playlist Name:</label>
+    <input type="text" name="name" value="{{playlist.name}}">
 
-<label for="description">Description:</label>
-<textarea name="description" cols="30" rows="10">{{playlist.description}}</textarea>
+    <label for="description">Description:</label>
+    <textarea name="description" cols="30" rows="10">{{playlist.description}}</textarea>
 
-<button type="submit">Send</button>
-</form>
+    <button type="submit">Send</button>
+    </form>
+</div>

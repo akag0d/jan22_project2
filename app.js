@@ -18,11 +18,11 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
-const projectName = "Jukebox music player";
+const projectName = "Jukebox";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 
-app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
+app.locals.title = `${capitalized(projectName)}`;
 
 app.use(function (req, res, next) {
     app.locals.user = req.session.user;

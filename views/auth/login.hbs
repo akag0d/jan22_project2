@@ -1,5 +1,7 @@
 <div class="body">
-  <h2>Login</h2>
+  <div class="title">
+    <h2>Login</h2>
+  </div>
 
   <form class='form' action='/auth/login' method='post'>
 
@@ -11,6 +13,7 @@
 
     <button type='submit'>Login</button>
   </form>
+  <p class="small">If you don't have an account, <a href="/auth/signup">Signup</a> here!</p>
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>
   {{/if}}
