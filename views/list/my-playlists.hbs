@@ -1,5 +1,8 @@
 <h2>My playlists</h2>
-
-{{#each userPlaylists}}
-<a href="/viewplaylist/{{this.id}}">{{this.name}}</a> - {{description}}
-{{/each}}
+<div class="my-playlist">
+    <ul>
+        {{#each userPlaylists}}
+        <li><a href="/viewplaylist/{{this.id}}">{{this.name}}</a> - {{description}}</li>
+        {{/each}}
+    </ul>
+</div>

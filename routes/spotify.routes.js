@@ -7,6 +7,7 @@ const querystring = require('querystring');
 const isLoggedIn = require("../middleware/isLoggedIn");
 const SpotifyWebApi = require('spotify-web-api-node');
 const Playlist = require("../models/Playlist.model");
+const Track = require("../models/Track.model");
 
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -31,7 +32,7 @@ router.get('/create/access_token=:accessToken&refresh_token=:refreshToken', (req
         const myProfile = myInfo.data;
         req.app.locals.myProfile = myProfile;
         req.session.myProfile = myProfile;
-        res.render('list/create-playlist', {myProfile})
+        res.render('list/create-playlist', { myProfile })
     })
     .catch(err => next(err))
   })
@@ -58,32 +59,38 @@ router.post('/create-playlist', async (req,res,next) => {
           Authorization: `Bearer ${accessToken}`, 
           },
       })
-      .then((data) => console.log(data.data.error))
-      .catch((err) => console.log('------------------------', err))   
-  
-      Playlist.create({name, description, author})
-      .then(playlistCreated => {
-          const user = req.app.locals.user._id;
-  
-          User.findById(user)
-          .then((foundUser) => {
-            foundUser.playlists.push(playlistCreated._id)
-            foundUser.save();
-            res.redirect(`/viewplaylist/${playlistCreated._id}`)
-          })
+      .then((data) => {
+        const spotifyId = data.data.id
+        /* console.log('spotifyId when I create the playlist: ', spotifyId, data.data.id) */
+        Playlist.create({name, description, author, spotifyId: data.data.id})
+        .then(playlistCreated => {
+            const user = req.app.locals.user._id;
+    
+        User.findById(user)
+            .then((foundUser) => {
+              foundUser.playlists.push(playlistCreated._id)
+              foundUser.save();
+              res.redirect(`/viewplaylist/${playlistCreated._id}`)
+            })
+        })
+        .catch(err => next(err))
+      
       })
-      .catch(err => next(err))
+      .catch((err) => console.log(err))   
+      
     })  
 
 ////          S   E    A    R   C   H         T   R   A   C   K   S             /////
 
 
-router.get('/search-songs', (req,res,next) => {
+router.post('/search-songs', (req,res,next) => { //spotifyId 6216841d53722ef37f93a49e Help
       const accessToken = req.app.locals.accessToken;
-      const query = req.query.search;
-      console.log('-----------------------', query)
+      const query = req.body.search;
+      const { spotifyId, playlistId } = req.body
+      
+      console.log('---------spotifyID in search tracks is ok --------------', spotifyId, playlistId)
    
-        axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track`, {  //type: "track,artist"
+        axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track`, {  
                params: { limit: 20, offset: 0 }, 
                headers: {
                    Accept: 'application/json',
@@ -92,33 +99,51 @@ router.get('/search-songs', (req,res,next) => {
                },
            })
        .then((resp) => {
-        const songResults = resp.data.tracks.items
-        console.log(songResults) 
-        res.render('list/search-results', {songResults}) 
+        const songResults = resp.data.tracks.items 
+        res.render('list/search-results', {songResults, spotifyId, playlistId}) 
+        console.log(' a song name not in add tracks yet',songResults[0].name)
        })
        .catch(err => next(err)) 
      })
 
 
-  /* 
-router.post('/search-songs', (req, res, next) => {
-    const { name, artist , playlistId } = req.body;
-    Tracks.findOne(name)
-    .then(tracksFound => {
-        res.render('list/search-songs')
-    })
-}); */
-
-/* router.get('/songs-results', (req,res,next) => {
-    Playlist.findByIdAndUpdate(playlistId)
-    .then(playlistFound => {
-        console.log(playlistFound)
-        playlistFound.tracks.push(name)
-        res.redirect(`/viewplaylist/${_id}`)
-    })
-}) */
-
 ////          A   D   D         T   R   A   C   K   S             /////
 
+
+router.post('/add-songs/:songId', async (req,res,next) => {
+  const {songId} = req.params;
+  const {spotifyId, playlistId} = req.body
+  const accessToken = req.app.locals.accessToken
+  console.log('In add tracks buttton, its ok so far ------ song name: ', songId, 'spotifyId: ',spotifyId,'playlistId: ', playlistId)
+
+   axios({
+    method: 'post',
+    url: `https://api.spotify.com/v1/playlists/${spotifyId}/tracks`,
+    data: {
+      name: ''
+    }, 
+    headers: {
+      'content-type': 'application/json',
+      'Content-Length': '0',
+      Authorization: `Bearer ${accessToken}`, 
+      },
+  })
+  .then((res) => console.log('creating a track on spotify:',res.data.error))
+  .catch((err) => console.log(err))   
+
+  Track.create( { name: songId })
+    .then(trackCreated => {
+        const user = req.app.locals.user._id;
+
+        Playlist.findById(playlistId)
+        .then((foundPlaylist) => {
+          console.log('foundPlaylist:', foundPlaylist)
+          foundPlaylist.tracks.push(trackCreated._id)
+          foundPlaylist.save();
+          res.redirect(`/viewplaylist/${playlistId}`)
+        })
+    })
+    .catch(err => next(err))
+  }) 
 
   module.exports = router;

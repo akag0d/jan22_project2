@@ -10,7 +10,8 @@ const playlistSchema = new Schema({
     description: String,
     href: String,
     author: { type: Schema.Types.ObjectId, ref: 'User'},
-    tracks: [ { type: Schema.Types.ObjectId, ref: 'Track'} ]
+    tracks: [ { type: Schema.Types.ObjectId, ref: 'Track'} ],
+    spotifyId: String
 },
 {
     timestamps: true

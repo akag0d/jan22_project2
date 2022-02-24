@@ -1,14 +1,9 @@
 <div class="view-playlist">
 
-    <h2>{{playlist.name}}</h2>
-    <h3>Playlist</h3>
-    <p>By {{playlist.author.username}}</p>
+    <h2>{{playlist.name}}</h2> 
+    <p>created by {{playlist.author.username}}</p>
     <p>{{playlist.description}}</p>
-    <p>Check the next songs:</p>
-    <ul>
-        <li>{{tracks}}</li>
-    </ul>
-
+<div class="authorbtns">
     {{#ifEquals author._id user._id}} 
         <form action="/edit/{{playlist._id}}" method="get">
         <button type="submit">Edit your Playlist</button>
@@ -18,19 +13,25 @@
         <button type="submit">Delete</button>
         </form>
     {{/ifEquals}}
+</div>
+
+{{!--     <p>Check the next songs:</p>
+    <ul>
+        <li> {{tracks}} </li>
+    </ul> --}}
 
 </div>
 
 <div class="search-song">
     <h3>Add your song!</h3>
 
-    <form action="/search-songs" class="search-song" method="get">
+    <form action="/search-songs" class="search-song" method="post">
  
         <label for="search">Search</label>
         <input type="text" name="search" placeholder="Look for artists or tracks">
         <br>
-        {{!--  hidden playlist id --}}
-        {{!-- <input type="hidden" name="playlistId" value="{{playlist._id}}"> --}}
+        <input type="hidden" name="spotifyId" value="{{playlist.spotifyId}}"> 
+        <input type="hidden" name="playlistId" value="{{playlist._id}}">
 
         <button type="submit">Search</button>
 

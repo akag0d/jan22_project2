@@ -1,24 +1,19 @@
-<h2>Create a playlist</h2>
-
 <p>Welcome, {{myProfile.display_name}}</p> 
-<a href='/myplaylists'>My Playlists</a>
 
 <img src="{{myProfile.images.0.url}}" alt="profile picture">
 
-<a href='/myplaylists'>My Playlists</a>
+<div class="add-song">
 
-<div class="create-form">
-<form action="/create-playlist" method="post">
+<h2>Create a playlist</h2>
 
-<label for="name">Playlist Name:</label>
-<input type="text" name="name">
+<form class="create-form" action="/create-playlist" method="post">
+    <label for="name">Playlist Name:</label>
+    <input type="text" name="name">
 
-<label for="description">Description:</label>
-<textarea name="description" cols="30" rows="10"></textarea>
+    <label for="description">Description:</label>
+    <textarea name="description" cols="30" rows="10"></textarea>
 
-{{!-- Create a hidden for user_id --}}
-
-<button type="submit">Create your playlist!</button>
+    <button type="submit">Create your playlist!</button>
 </form>
 
 </div>

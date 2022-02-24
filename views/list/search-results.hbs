@@ -2,13 +2,20 @@
 
 <div class="search-results">
 {{#each songResults}}
-<a href="{{href}}">{{name}}</a>
-<p>by: {{album.artists.0.name}}</p>
+<a href="{{this.href}}">{{this.name}}</a>
+<p>by: {{this.album.artists.0.name}}</p>
 <audio controls>
-    <source src="{{preview_url}}" type="audio/mpeg">
+    <source src="{{this.preview_url}}" type="audio/mpeg">
 </audio>
-<form action="/add-songs/{{id}}" method="post">
-<button>Add to playlist</button></form>
-
+<form action="/add-songs/{{this.id}}" method="post">
+<button type="submit">Add</button>
 {{/each}}
+{{!-- HIDDEN --}}
+<input type="hidden" name="spotifyId" value="{{spotifyId}}">
+<input type="hidden" name="playlistId" value="{{playlistId}}">
+</form>
+
+
 </div>
+
+
