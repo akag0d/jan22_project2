@@ -9,7 +9,7 @@ font-family: 'Seymour One', sans-serif;
 
 html {
   margin: 0;
-  background-image: url('/images/jukebox-bgblack.jpg'); 
+ /*  background-image: url('/images/jukebox-bgblack.jpg');  */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top;
@@ -111,6 +111,39 @@ button {
 
 .small {
   font-size: 0.8rem;
+}
+
+.search-body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 4.5%;
+}
+
+.search-title {
+  max-width: 350px;
+}
+
+.jukebox {
+  background-image: url('/images/jukebox2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 60%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-form {
+  position: absolute;
+
 }
 
 /*   Profile.hbs    

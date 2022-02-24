@@ -1,20 +1,24 @@
-<div class="body">
+<div class="search-body">
 
-  <div class="title">
+  <div class="search-title">
     <h2>Search Playlist</h2>
   </div>
+
+  <div class="jukebox">
+    <div class="form">
+    <form action='/search-playlist' method='post' class="search-form">
+
+      <input type='text' name='name' placeholder="Playlist title"/>
+
+  {{!--     <label for='author'>Author: </label>
+      <input type='text' name='author'/> --}}
+
+      <button type="submit">Search</button>
+    </form>
+    </div>
   
-  <div class="search-playlist form">
-  <form action='/search-playlist' method='post'>
-
-    <label for='name'>Title: </label>
-    <input type='text' name='name' />
-
-{{!--     <label for='author'>Author: </label>
-    <input type='text' name='author'/> --}}
-
-    <button type="submit">Search</button>
-  </form>
+    
+  </div>
   {{#if errorMessage}}
     <p>{{errorMessage}}</p>
   {{/if}}
