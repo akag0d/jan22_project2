@@ -1,30 +1,93 @@
+/* azul: #007fff rosa: #ff00ff roxo: #7f00ff ciano: #00ffff 
+font-family: 'Black Han Sans', sans-serif;
+font-family: 'Days One', sans-serif;
+font-family: 'Encode Sans Expanded', sans-serif;
+font-family: 'Seymour One', sans-serif;
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Days+One&family=Encode+Sans+Expanded:wght@100;400;900&family=Seymour+One&display=swap');
+
+html {
+  margin: 0;
+  background-image: url('/images/jukebox-bgblack.jpg'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  background-color: black;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #7c5e9c
+
+  color: white;
+  font-size: 18px;
+  font-family: 'Encode Sans Expanded', sans-serif;
 }
+
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+h2 {
+  font-family: 'Days One', sans-serif;
+  font-size: 5rem;
+}
+
+.title {
+  width: 25vw;
+}
+
+.body {
+  width: 25vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  width: 250px;
+}
+
+.form button {
+  background-color: #007fff;
+  color: white;
+  margin: 20px 2px;
+  padding: 10px;
+  width: 100px;
+  font-family: 'Encode Sans Expanded', sans-serif;
+  border-radius: 0.70em;
+  border: 0px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+
+
+/*      topnav        */
 
 .topnav {
   overflow: hidden;
-  background-color: #7c5e9c
 }
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #ff00ff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .topnav a:hover {
-  background-color: #ddd;
-  color: #be3c3b;
+  background-color: #ff00ff;
+  color: #00ffff;
 }
 
 .topnav a.active {
-  background-color: #be3c3b;
+  background-color: #007fff;
   color: white;
 }
 
@@ -33,13 +96,11 @@ body {
 .profile {
   display: flex;
   flex-direction: column;
-  justify-items: start;
-  align-items: center;
   padding: 10px;
   margin: auto;
   width: 60%;
-  background-color: transparent;
-  position: center;
+  position:relative;
+  left: 20px;
   font-size: large;
 }
 
@@ -60,7 +121,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 300px;
-  background-color: rgb(135, 181, 189);
+  background-color: #7f00ff';
   padding: 10px;
   margin: 15px;
 }
@@ -72,7 +133,6 @@ body {
   justify-content: center;
   align-items: center;
   width: 150px;
-  background-color: rgb(201, 71, 38);
   padding: 20px;
   margin: 10px;
   position: center;
@@ -86,7 +146,6 @@ body {
   width: 50vw;
   padding: 10px;
   margin: 15px;
-  background-color: rgb(red, black, yellow);
 }
 
 .search-playlist {

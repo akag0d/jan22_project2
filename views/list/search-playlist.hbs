@@ -1,14 +1,16 @@
 <div id='form'>
-  <h2>Search Playlist</h2>
-
+  <div class="title">
+    <h2>Search Playlist</h2>
+  </div>
+  
   <div class="search-playlist">
   <form action='/search-playlist' method='post'>
 
     <label for='name'>Title: </label>
     <input type='text' name='name' />
 
-    <label for='author'>Author: </label>
-    <input type='text' name='author'/>
+{{!--     <label for='author'>Author: </label>
+    <input type='text' name='author'/> --}}
 
     <button type="submit">Search</button>
   </form>

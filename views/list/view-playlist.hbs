@@ -1,24 +1,25 @@
 <div class="view-playlist">
-
-    <h2>{{playlist.name}}</h2> 
+    
+    <div class="title">
+        <h2>{{playlist.name}}</h2> 
+    </div>
+    
     <p>created by {{playlist.author.username}}</p>
     <p>{{playlist.description}}</p>
-<div class="authorbtns">
-    {{#ifEquals author._id user._id}} 
-        <form action="/edit/{{playlist._id}}" method="get">
-        <button type="submit">Edit your Playlist</button>
-        </form>
 
-        <form action="/delete/{{playlist._id}}" method="post">
-        <button type="submit">Delete</button>
-        </form>
-    {{/ifEquals}}
-</div>
+    <div class="authorbtns">
+        {{#ifEquals author._id user._id}} 
+            <form action="/edit/{{playlist._id}}" method="get">
+            <button type="submit">Edit your Playlist</button>
+            </form>
 
-{{!--     <p>Check the next songs:</p>
-    <ul>
-        <li> {{tracks}} </li>
-    </ul> --}}
+            <form action="/delete/{{playlist._id}}" method="post">
+            <button type="submit">Delete</button>
+            </form>
+        {{/ifEquals}}
+    </div>
+
+    {{!--     <p>Check the next songs:{{tracks}}</p>   --}}
 
 </div>
 

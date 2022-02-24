@@ -114,13 +114,12 @@ router.post('/add-songs/:songId', async (req,res,next) => {
   const {songId} = req.params;
   const {spotifyId, playlistId} = req.body
   const accessToken = req.app.locals.accessToken
-  console.log('In add tracks buttton, its ok so far ------ song name: ', songId, 'spotifyId: ',spotifyId,'playlistId: ', playlistId)
+  console.log('In add tracks buttton, its ok so far ------ song id: ', songId, 'spotifyId: ',spotifyId,'playlistId: ', playlistId)
 
    axios({
     method: 'post',
-    url: `https://api.spotify.com/v1/playlists/${spotifyId}/tracks`,
+    url: `https://api.spotify.com/v1/playlists/${spotifyId}/tracks?uris=spotify:track:${songId}`,
     data: {
-      name: ''
     }, 
     headers: {
       'content-type': 'application/json',
@@ -128,7 +127,7 @@ router.post('/add-songs/:songId', async (req,res,next) => {
       Authorization: `Bearer ${accessToken}`, 
       },
   })
-  .then((res) => console.log('creating a track on spotify:',res.data.error))
+  .then((res) => console.log('creating a track on spotify:',res.data))
   .catch((err) => console.log(err))   
 
   Track.create( { name: songId })
